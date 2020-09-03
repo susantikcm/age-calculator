@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Challenge 1: Create an Age Calculator</h1>
+    <form>
+        <label for="dob">Date of birth:</label>
+        <input id="dob" type="Date" required />
+        <button type="button" onclick="calcAge()">Calculate Age</button>
+    </form>
+    <h2 id="result">Age</h2>
+    <script>
+        var dob = document.getElementById("dob");
+        if(dob != undefined) {
+            document.getElementById("dob").value = new Date().toISOString().substring(0, 10);
+        }
+
+        function calcAge() {
+            if(document.getElementById("dob") != undefined) {
+                var dobInput = new Date(document.getElementById("dob").value);
+                var currentYear = new Date();
+                var nextYear = new Date(currentYear.setFullYear(currentYear.getFullYear()+1));
+
+                if(dobInput.getFullYear() <= nextYear.getFullYear())
+                {
+                    var month = dobInput.getMonth() - nextYear.getMonth();
+
+                    if(dobInput.getMonth() > nextYear.getMonth()) {
+                        var age = (nextYear.getFullYear() - dobInput.getFullYear()) - 1;
+                        if(month === 12) 
+                            age++;
+                        else if(month < 6)
+                            month = 12 - month;
+                    }
+                    else {
+                        var age = nextYear.getFullYear() - dobInput.getFullYear();
+                    }
+
+                    var ageText = "Next year, you will be " + age + " year(s) " + Math.abs(month) + " month(s) old"
+                    console.log(ageText);
+                    document.getElementById("result").innerHTML = ageText;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- document.getElementById("h2").innerText = "Age = " + age + ", " + month + " month"; -->
